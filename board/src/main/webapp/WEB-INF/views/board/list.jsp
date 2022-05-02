@@ -37,7 +37,7 @@ pageEncoding="UTF-8"%>
        		<c:forEach var="dto" items="${list}">
        		<tr>
        			<td>${dto.bno}</td>
-       			<td><a href="/board/read?bno=${dto.bno}">${dto.title}</a></td>
+       			<td><a href="${dto.bno}" class="move">${dto.title}</a></td>
        			<td>${dto.writer}</td>
        			<td><fmt:formatDate pattern="yyyy-MM-dd HH:mm" value="${dto.regdate}"/></td>
        			<td><fmt:formatDate pattern="yyyy-MM-dd HH:mm" value="${dto.updatedate}"/></td>
@@ -48,7 +48,24 @@ pageEncoding="UTF-8"%>
         <div class="row">
           <!-- start search -->
           <div class="col-md-12">
-            <div class="col-md-8"><!--search Form--></div>
+            <div class="col-md-8">
+            	<!--search Form-->
+            	<form action="" method="get" id="searchForm">
+            		<input type="hidden" name="pageNum" value="${cri.pageNum}" /> <!-- 얘네도 같이 보내야함 -->
+					<input type="hidden" name="amount" value="${cri.amount}" />
+            		<select name="type" id="">
+            			<option value="" <c:out value="${cri.type == '' ? 'selected':''}"/>>---------</option>
+            			<option value="T" <c:out value="${cri.type == 'T' ? 'selected':''}"/>>제목</option>
+            			<option value="C" <c:out value="${cri.type == 'C' ? 'selected':''}"/>>내용</option>
+            			<option value="W" <c:out value="${cri.type == 'W' ? 'selected':''}"/>>작성자</option>
+            			<option value="TC" <c:out value="${cri.type == 'TC' ? 'selected':''}"/>>제목 or 내용</option>
+            			<option value="TW" <c:out value="${cri.type == 'TW' ? 'selected':''}"/>>제목 or 작성자</option>
+            			<option value="TCW" <c:out value="${cri.type == 'TCW' ? 'selected':''}"/>>제목 or 내용 or 작성자</option>
+            		</select>
+            		<input type="text" name="keyword" id="" value="${cri.keyword}"/>
+            		<button class="btn btn-default" type="submit">Search</button>
+            	</form>
+            </div>
             <div class="col-md-2 col-md-offset-2">
               <!--페이지 목록 갯수 지정하는 폼-->
               <select name="" id="amount" class="form-control">
@@ -91,6 +108,8 @@ pageEncoding="UTF-8"%>
 	-->
 	<input type="hidden" name="pageNum" value="${cri.pageNum}" />
 	<input type="hidden" name="amount" value="${cri.amount}" />
+	<input type="hidden" name="type" value="${cri.type}" />
+	<input type="hidden" name="keyword" value="${cri.keyword}" />
 </form>
 
 

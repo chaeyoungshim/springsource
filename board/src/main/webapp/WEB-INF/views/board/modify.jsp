@@ -45,6 +45,10 @@
 <%-- remove와 list를 위한 폼--%>
 <form action="" id="operForm">
 	<input type="hidden" value="${dto.bno}" name="bno" />
+	<input type="hidden" value="${cri.pageNum}" name="pageNum" />
+	<input type="hidden" value="${cri.amount}" name="amount" />
+	<input type="hidden" value="${cri.type}" name="type" />
+	<input type="hidden" value="${cri.keyword}" name="keyword" />
 </form>
 <%-- 스크립트 --%>
 <script src="/resources/js/modify.js"></script>

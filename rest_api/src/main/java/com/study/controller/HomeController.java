@@ -30,18 +30,24 @@ public class HomeController {
 	 * Simply selects the home view to render by returning its name.
 	 */
 	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String home(Locale locale, Model model) {
-		logger.info("Welcome home! The client locale is {}.", locale);
-		
-		Date date = new Date();
-		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, locale);
-		
-		String formattedDate = dateFormat.format(date);
-		
-		model.addAttribute("serverTime", formattedDate );
-		
+	public String home() {
+		logger.info("Welcome home!");
 		return "home";
 	}
+	
+	
+	@GetMapping("/member/step2")
+	public void step2() {
+		logger.info("회원가입 요청");
+	}
+	
+	@GetMapping("/member/changePwd")
+	public void change() {
+		logger.info("회원수정 요청");
+	}
+	
+	
+	
 	
 	
 	@ResponseBody //jsp 찾지마

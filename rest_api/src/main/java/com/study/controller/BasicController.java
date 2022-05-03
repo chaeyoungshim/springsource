@@ -28,7 +28,7 @@ public class BasicController {
 	}
 	
 	@GetMapping(path = "/send.xml",produces = {MediaType.APPLICATION_XML_VALUE})
-	public SampleDTO sendDTO() {
+	public SampleDTO sendDTO() { //객체를 보낼 수 있음=>컨버터 필요(라이브러리 사용)
 		SampleDTO dto = new SampleDTO();
 		dto.setName("hong");
 		dto.setBno("123");
@@ -101,7 +101,7 @@ public class BasicController {
 	// @PathVariable : REST 방식은 URL 이 가지고 있는 값을 정보로 사용하는 경우가 많음
 	//				   URL 파라미터에 들어오는 값을 변수에 담을 수 있게 해줌
 	
-	@GetMapping("/product/{cat}/{pid}")
+	@GetMapping("/product/{cat}/{pid}") //반드시 중괄호 줘야 변수를 줘서 사용하겠다 라는 의미가 없어지기에 꼭 써주고 써야 함
 	public String[] getPath(@PathVariable("cat") String cat,@PathVariable("pid") String pid) {
 		return new String[] {"category :"+cat, "productId :"+pid};
 	}

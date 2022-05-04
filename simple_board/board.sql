@@ -96,10 +96,14 @@ alter table spring_reply add constraint pk_reply primary key(rno);
 alter table spring_reply add constraint fk_reply_board foreign key(bno)
 references spring_board(bno);
 
+select * from spring_reply where rno = 1;
 
+select * from spring_reply where bno = 457;
 
+select * from spring_reply;
 
-
+-- 인덱스 생성
+create index idx_reply on spring_reply(bno desc,rno asc);
 
 
 

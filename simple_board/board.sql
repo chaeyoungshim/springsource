@@ -11,6 +11,18 @@ alter table spring_board add constraint pk_spring_board primary key(bno);
 
 create sequence seq_board;
 
+-- 댓글 수 컬럼 추가
+alter table spring_board add(replycnt number default 0);
+
+-- 댓글 기존 업데이트
+update spring_board 
+set replycnt = (select count(rno) from spring_reply where spring_board.bno = spring_reply.bno);
+
+
+
+
+
+
 -- oracle 페이지 나누기
 
 -- 더미 데이터
@@ -100,13 +112,28 @@ select * from spring_reply where rno = 1;
 
 select * from spring_reply where bno = 457;
 
-select * from spring_reply;
+
+select * from spring_board where bno = 457;
+
 
 -- 인덱스 생성
 create index idx_reply on spring_reply(bno desc,rno asc);
 
 
 
+
+-- 첨부파일 테이블 생성
+create table spring_attach(
+	uuid varchar2(100) not null,
+	uploadpath varchar2(200) not null,
+	filename varchar2(100) not null,
+	filetype char(1) default '1',
+	bno number(10,0)
+);
+
+alter table spring_attach add constraint pk_attach primary key(uuid);
+alter table spring_attach add constraint fk_board_attach 
+foreign key(bno) references spring_board;
 
 
 

@@ -64,12 +64,14 @@
 					</li>
 				</ul>
 			</div>
+			<%-- 댓글 페이지 영역 --%>
+			<div class="panel-footer"></div>
 		</div>	
 	</div>
 </div>
 
 <%-- 댓글 작성 모달 폼 --%>
-<div class="modal" tabindex="-1" id="replyModal">
+<div class="modal" tabindex="-1" id="replyModal" data-rno="1">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">

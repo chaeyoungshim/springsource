@@ -12,8 +12,8 @@
 	<select id="select" resultType="com.study.dto.BoardDTO">
 		<![CDATA[
 	
-		select bno,title,writer,regdate,updatedate
-		from (select /*+INDEX_DESC(spring_board pk_spring_board)*/ rownum rn, bno, title, writer,regdate,updatedate
+		select bno,title,writer,regdate,updatedate,replycnt
+		from (select /*+INDEX_DESC(spring_board pk_spring_board)*/ rownum rn, bno, title, writer,regdate,updatedate,replycnt
 	 		 from spring_board
 			 where 
 		]]>	 
@@ -34,6 +34,13 @@
 		
 		bno > 0
 	</select>
+	
+	<!-- 댓글 수 수정 -->
+	<update id="updateReplyCnt">
+		update spring_board 
+		set replycnt = replycnt + #{amount} 
+		where bno=#{bno}
+	</update>
 	
 	<!-- 동적 sql -->
 	<sql id="criteria">

@@ -35,12 +35,6 @@ import net.coobird.thumbnailator.Thumbnailator;
 public class UploadAjaxController {
 	
 	
-	@GetMapping("/uploadAjax")
-	public String uploadAjaxForm() {
-		log.info("ajax 업로드 폼 요청");
-		return "uploadform_ajax";
-	}
-	
 	@PostMapping("/uploadAjax")
 	public ResponseEntity<List<AttachDTO>> uploadAjaxPost(MultipartFile[] uploadFile) {
 		log.info("ajax 업로드 요청");

@@ -41,4 +41,38 @@
     	</div>
     </div>
 </div>           
-<%@include file="../includes/footer.jsp" %>       
+<div class="row">
+	<div class="col-lg-12">
+		<div class="panel panel-default">
+			<div class="panel-heading">파일첨부</div>
+			<div class="panel-body">
+				<div class="form-group uploaddiv">
+					<input type="file" name="uploadFile" id="" multiple/>
+				</div>
+				<div class="uploadResult">
+					<ul><!-- 첨부파일 정보 --></ul>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<script src="/resources/js/upload.js"></script>
+<script src="/resources/js/register.js"></script>
+<%@include file="../includes/footer.jsp" %>    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   

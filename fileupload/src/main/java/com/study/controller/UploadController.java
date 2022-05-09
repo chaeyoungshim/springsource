@@ -52,24 +52,25 @@ public class UploadController {
 
 	// 다운로드
 	// 이미지,텍스트,비디오....+상태코드(얘도 같이 보낼 예정)
-	@GetMapping(path = "/download", produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
-	public ResponseEntity<Resource> downloadFile(String fileName) {
-		log.info("다운로드 요청 "+fileName);
-		
-		Resource resource = new FileSystemResource("d:\\upload\\"+fileName);
-		String resourceName = resource.getFilename();
-		
-		HttpHeaders headers = new HttpHeaders();
-		
-		try {
-			headers.add("Content-Disposition", 
-					"attachment;filename="+new String(resourceName.getBytes("utf-8"), "ISO-8859-1"));
-		} catch (UnsupportedEncodingException e) {
-			e.printStackTrace();
-		}
-		
-		return new ResponseEntity<Resource>(resource, headers, HttpStatus.OK);
-	}
+	
+//	@GetMapping(path = "/download", produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
+//	public ResponseEntity<Resource> downloadFile(String fileName) {
+//		log.info("다운로드 요청 "+fileName);
+//		
+//		Resource resource = new FileSystemResource("d:\\upload\\"+fileName);
+//		String resourceName = resource.getFilename();
+//		
+//		HttpHeaders headers = new HttpHeaders();
+//		
+//		try {
+//			headers.add("Content-Disposition", 
+//					"attachment;filename="+new String(resourceName.getBytes("utf-8"), "ISO-8859-1"));
+//		} catch (UnsupportedEncodingException e) {
+//			e.printStackTrace();
+//		}
+//		
+//		return new ResponseEntity<Resource>(resource, headers, HttpStatus.OK);
+//	}
 	
 	
 }

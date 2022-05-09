@@ -40,7 +40,23 @@
                 		</div>
                 	</div>
                 </div>
-            </div>         
+            </div>
+<%-- 파일 첨부 영역 --%>
+<div class="row">
+	<div class="col-lg-12">
+		<div class="panel panel-default">
+			<div class="panel-heading"><i class="fa fas fa-file"></i> 첨부파일</div>
+			<div class="panel-body">
+				<div class="uploadResult">
+					<ul><!-- 첨부파일 정보 --></ul>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="bigPictureWrapper">
+	<div class="bigPicture"></div>
+</div>
 <%-- 댓글 리스트 영역 --%>
 <div class="row">
 	<div class="col-lg-12">
@@ -117,6 +133,8 @@
 </script>
 <script src="/resources/js/read.js"></script>
 <script src="/resources/js/reply.js"></script>
+<script src="/resources/js/upload.js"></script>
+
 <%@include file="../includes/footer.jsp" %>   
 
 

@@ -119,7 +119,7 @@ select * from spring_board where bno = 457;
 -- 인덱스 생성
 create index idx_reply on spring_reply(bno desc,rno asc);
 
-
+select * from spring_board;
 
 
 -- 첨부파일 테이블 생성
@@ -133,9 +133,9 @@ create table spring_attach(
 
 alter table spring_attach add constraint pk_attach primary key(uuid);
 alter table spring_attach add constraint fk_board_attach 
-foreign key(bno) references spring_board;
+foreign key(bno) references spring_board(bno);
 
-
+select * from spring_attach;
 
 
 

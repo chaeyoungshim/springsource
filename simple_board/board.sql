@@ -119,7 +119,7 @@ select * from spring_board where bno = 457;
 -- 인덱스 생성
 create index idx_reply on spring_reply(bno desc,rno asc);
 
-select * from spring_board;
+select * from spring_attach;
 
 
 -- 첨부파일 테이블 생성

@@ -22,7 +22,7 @@
 	<logger name = "org.springframework.jdbc" level="debug"/>
 	<logger name = "com.study.mapper" level="debug"/>
 
-  <root level="debug">
+  <root level="info">
     <appender-ref ref="STDOUT" />
     <appender-ref ref="FILE" />
   </root>

@@ -42,6 +42,25 @@
     	</div>
     </div>
 </div>
+<%-- 파일 첨부 영역 --%>
+<div class="row">
+	<div class="col-lg-12">
+		<div class="panel panel-default">
+			<div class="panel-heading"><i class="fa fas fa-file"></i> 첨부파일</div>
+			<div class="panel-body">
+				<div class="form-group uploaddiv">
+					<input type="file" name="uploadFile" id="" multiple/>
+				</div>
+				<div class="uploadResult">
+					<ul><!-- 첨부파일 정보 --></ul>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="bigPictureWrapper">
+	<div class="bigPicture"></div>
+</div>
 <%-- remove와 list를 위한 폼--%>
 <form action="" id="operForm">
 	<input type="hidden" value="${dto.bno}" name="bno" />
@@ -51,7 +70,12 @@
 	<input type="hidden" value="${cri.keyword}" name="keyword" />
 </form>
 <%-- 스크립트 --%>
+<script>
+	//현재 글 번호
+	let bno = ${dto.bno};
+</script>
 <script src="/resources/js/modify.js"></script>
+<script src="/resources/js/upload.js"></script>
 <%@include file="../includes/footer.jsp" %>     
 
 

@@ -1,5 +1,9 @@
 package com.study.controller;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -78,6 +82,7 @@ public class BoardController {
 		model.addAttribute("dto",dto);
 	}
 	
+	// /board/read + post => 수정 성공 시 수정된 게시물 보여주기
 	@PostMapping("/modify")
 	public String modify(BoardDTO updateDto,@ModelAttribute("cri")Criteria cri,RedirectAttributes rttr) {
 		log.info("게시물 수정 요청"+updateDto);
@@ -101,6 +106,12 @@ public class BoardController {
 		log.info("게시물 삭제 요청"+bno);
 		log.info("게시물 삭제 요청"+cri);
 		
+		//서버 폴더에 저장한 첨부 파일 삭제
+		//bno 에 해당하는 첨부 리스트 가져오기
+		List<AttachDTO> attachList = service.attachList(bno);
+		deleteFiles(attachList);
+		
+		//DB 작업 - 게시글 삭제 + 첨부파일 삭제 + ㄷ댓그라 ㅅ
 		service.delete(bno);
 		
 		//주소줄에 딸려보내는 방식 => 이걸 딸려보내야 삭제하고도 그 페이지, 양 그대로 남겨져 위치가 그대로가 되니까
@@ -122,6 +133,36 @@ public class BoardController {
 		log.info("첨부파일 "+bno);
 		return new ResponseEntity<List<AttachDTO>>(service.attachList(bno),HttpStatus.OK);
 	}
+	
+	private void deleteFiles(List<AttachDTO> attachList) {
+		log.info("폴더 내 첨부파일 삭제");
+		
+		if(attachList == null || attachList.size() <= 0) {
+			return;
+		}
+		
+		for(AttachDTO attach:attachList) {
+			//파일이 존재하는 경로 생성
+			Path path = Paths.get("d:\\upload\\", attach.getUploadPath()+"\\"+attach.getUuid()+"_"+attach.getFileName());
+			
+			try {
+				
+				//일반 파일, 원본 이미지 삭제
+				Files.deleteIfExists(path);
+				
+				//Files.probeContentType(파일경로) : 확장자를 통해서 mime 타입을 판단하는 메소드 
+				
+				if(Files.probeContentType(path).startsWith("image")) { //앞에가 image로 시작한다면
+					Path thumb = Paths.get("d:\\upload\\", attach.getUploadPath()+"\\s_"+attach.getUuid()+"_"+attach.getFileName());
+					//썸네일 이미지 삭제
+					Files.delete(thumb);
+				}
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+	
 	
 }
 

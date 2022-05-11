@@ -3,6 +3,7 @@ package lambda;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class StreamEx4 {
@@ -18,8 +19,11 @@ public class StreamEx4 {
 		System.out.println(upperList);
 		
 		//stream 이용
-		Stream<String> stream = list.stream();
-		Stream<String> upper = stream.map(String::toUpperCase);
-		upper.forEach(s -> System.out.println(s));
+//		Stream<String> stream = list.stream();
+//		Stream<String> upper = stream.map(String::toUpperCase);
+//		upper.forEach(s -> System.out.println(s));
+		
+		List<String> upperList2 = list.stream().map(String::toUpperCase).collect(Collectors.toList());
+		System.out.println(upperList2);
 	}
 }

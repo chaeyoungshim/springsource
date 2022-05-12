@@ -186,17 +186,9 @@
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
-			<version>4.12</version>
-		</dependency>  
-		<dependency>
-		    <groupId>org.springframework</groupId>
-		    <artifactId>spring-test</artifactId>
-		    <version>5.3.19</version>
-		</dependency>
-		
-		
-		
-		      
+			<version>4.7</version>
+			<scope>test</scope>
+		</dependency>        
 	</dependencies>
     <build>
         <plugins>
@@ -232,6 +224,15 @@
                 <version>1.2.1</version>
                 <configuration>
                     <mainClass>org.test.int1.Main</mainClass>
+                </configuration>
+            </plugin>
+              <!-- web.xml 삭제시 나타나는 오류 제거 -->
+             <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-war-plugin</artifactId>
+                <version>3.3.1</version>
+                <configuration>
+                    <failOnMissingWebxml>false</failOnMissingWebxml>
                 </configuration>
             </plugin>
         </plugins>

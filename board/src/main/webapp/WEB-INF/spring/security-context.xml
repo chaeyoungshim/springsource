@@ -11,17 +11,23 @@
 	<bean id="customLoginSuccessHandler" class="com.study.handler.CustomLoginSuccessHandler"/>
 	<!-- 접근 권한이 없는 경우 처리 작업을 담당 -->
 	<bean id="customAccessDeniedHandler" class="com.study.handler.CustomAccessDeniedHandler"/>
-	
+	<!-- 로그인 이후 정보를 가지고 있는 객체 -->
+	<bean id="customUserDetailService" class="com.study.service.CustomUserDetailService"/>
 	
 	<!-- 이건 기본 -->
 	<security:http>
 		<security:form-login login-page="/member/login" authentication-success-handler-ref="customLoginSuccessHandler"
 			authentication-failure-url="/member/login-error"/>
+			
+		<!-- /logout + post 가 기본임 => 우리가 원하는 대로 변경해주기 -->
+		<security:logout logout-url="/member/logout" invalidate-session="true" logout-success-url="/"/>
+		
+		<!-- remember me -->
+		<security:remember-me data-source-ref="ds" token-validity-seconds="604800"/>
 	</security:http>
 
 	<security:authentication-manager>
-		<security:authentication-provider>
-			<security:jdbc-user-service data-source-ref="ds"/>
+		<security:authentication-provider user-service-ref="customUserDetailService">
 			<security:password-encoder ref="encoder"/>
 		</security:authentication-provider>
 	</security:authentication-manager>

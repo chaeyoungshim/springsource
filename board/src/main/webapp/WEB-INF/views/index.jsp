@@ -11,5 +11,8 @@
 <div>
 	<a href="/board/list">전체 리스트</a>
 </div>
+<div>
+	<a href="/member/login">로그인</a>
+</div>
 </body>
 </html>

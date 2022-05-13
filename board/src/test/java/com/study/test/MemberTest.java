@@ -30,7 +30,7 @@ public class MemberTest {
 			try(Connection con = ds.getConnection();
 				PreparedStatement pstmt = con.prepareStatement(sql)) {
 				
-				pstmt.setString(2, encoder.encode("pw"+i));
+				pstmt.setString(2, encoder.encode("pw"+i)); //user0, pw0, 일반회원0
 				
 				if(i<80) {
 					pstmt.setString(1, "user"+i);

@@ -19,6 +19,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -34,7 +35,7 @@ import net.coobird.thumbnailator.Thumbnailator;
 @Controller
 public class UploadAjaxController {
 	
-	
+	@PreAuthorize("isAuthenticated()")
 	@PostMapping("/uploadAjax")
 	public ResponseEntity<List<AttachDTO>> uploadAjaxPost(MultipartFile[] uploadFile) {
 		log.info("ajax 업로드 요청");
@@ -145,6 +146,7 @@ public class UploadAjaxController {
 	}
 	
     //서버 파일 삭제 : X 버튼 클릭 시
+    @PreAuthorize("isAuthenticated()")
     @PostMapping("/deleteFile")
     public ResponseEntity<String> deleteFile(String fileName,String type) {
     	

@@ -37,6 +37,9 @@ $(function(){
 			type:"post",
 			processData:false,
 			contentType:false,
+			beforeSend:function(xhr){
+				xhr.setRequestHeader(csrfHeaderName,csrfTokenValue);
+			},
 			data:formData,
 			dataType:'json',
 			success:function(result){
@@ -45,7 +48,6 @@ $(function(){
 				showUploadFile(result);
 			}
 		})
-		
 	})//uploadBtn 종료
 	
 	

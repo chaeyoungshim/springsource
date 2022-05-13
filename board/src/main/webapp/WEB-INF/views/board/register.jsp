@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
 
 <%@include file="../includes/header.jsp" %>
 <div class="row">
@@ -28,12 +29,13 @@
     				</div> 
     				<div class="form-group">
     					<label>Writer</label>
-    					<input class="form-control" name="writer">                				
+    					<input class="form-control" name="writer" value='<sec:authentication property="principal.username"/>' readonly>                				
     				</div>  
     					<input type="hidden" value="1" name="pageNum" />
 						<input type="hidden" value="10" name="amount" />
 						<input type="hidden" value="${cri.type}" name="type" />
 						<input type="hidden" value="${cri.keyword}" name="keyword" />
+							<input type="hidden" name="${_csrf.parameterName}"  value="${_csrf.token}"/>
 	    				<button type="submit" class="btn btn-default">Submit</button>              			
     				<button type="reset" class="btn btn-default">reset</button>              			
     			</form>
@@ -56,6 +58,10 @@
 		</div>
 	</div>
 </div>
+<script>
+	let csrfHeaderName = "${_csrf.headerName}";
+	let csrfTokenValue = "${_csrf.token}";
+</script>
 <script src="/resources/js/upload.js"></script>
 <script src="/resources/js/register.js"></script>
 <%@include file="../includes/footer.jsp" %>    

@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -37,6 +38,7 @@ public class ReplyController {
 	//create
 	
 	//consumes : 받아서 처리할 컨텐트 타입
+	@PreAuthorize("isAuthenticated()")
 	@PostMapping(path = "/new", consumes = "application/json", produces = MediaType.TEXT_PLAIN_VALUE) //produces = : 애플리케이션,json,xml...이라는 것/ consumes = : 받아오는거에 대해 정리
 	public ResponseEntity<String> create(@RequestBody ReplyDTO insertDto) { //json으로 넘어오면 무조건 @RequestBody 써줘야 함
 		log.info("댓글 삽입 요청 " + insertDto);
@@ -58,6 +60,7 @@ public class ReplyController {
 	
 //	@RequestMapping(path = "/{rno}" ,method = {RequestMethod.PUT,RequestMethod.PATCH}) => RequestMapping으로 준다면 이렇게
 	
+	@PreAuthorize("principal.username == #updateDto.replyer")
 	@PutMapping("/{rno}") //path 에 들어있는거 쓸거라면 rno 앞에 @PathVariable 써주기
 	public ResponseEntity<String> update(@PathVariable int rno,@RequestBody ReplyDTO updateDto) { //success/fail 보낼거기 때문에 타입을 String으로 해야 됨
 		log.info("댓글 수정 요청 "+updateDto);
@@ -69,8 +72,11 @@ public class ReplyController {
 	}
 	
 	//댓글 삭제 : /replies/rno + Delete
+	// 성공시 success + 200, 실패시 fail + 500
+	
+	@PreAuthorize("principal.username == #dto.replyer")
 	@DeleteMapping("/{rno}")
-	public ResponseEntity<String> delete(@PathVariable("rno") int rno) {
+	public ResponseEntity<String> delete(@PathVariable("rno") int rno, @RequestBody ReplyDTO dto) {
 		
 		log.info("댓글 삭제 요청 " +rno);
 		

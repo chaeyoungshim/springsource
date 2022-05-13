@@ -10,6 +10,9 @@ let replyService=(function(){
 		$.ajax({
 			url:'/replies/new',
 			type:'post',
+			beforeSend:function(xhr){
+				xhr.setRequestHeader(csrfHeaderName,csrfTokenValue);
+			},
 			contentType:'application/json',
 			data:JSON.stringify(reply),
 			success:function(result){
@@ -54,6 +57,9 @@ let replyService=(function(){
 		$.ajax({
 			url:'/replies/'+reply.rno,
 			type:'put',
+			beforeSend:function(xhr){
+				xhr.setRequestHeader(csrfHeaderName,csrfTokenValue);
+			},
 			contentType:'application/json',
 			data:JSON.stringify(reply),
 			success:function(result){
@@ -65,11 +71,18 @@ let replyService=(function(){
 	}//update 종료
 	
 	
-	function remove(rno,callback){		
+	function remove(rno,replyer,callback){		
 		
 		$.ajax({
 			url:'/replies/'+rno,
-			type:'delete',			
+			type:'delete',	
+			beforeSend:function(xhr){
+				xhr.setRequestHeader(csrfHeaderName,csrfTokenValue);
+			},
+			data:JSON.stringify({
+				replyer:replyer	
+			}),
+			contentType:'application/json',
 			success:function(result){
 				if(callback){
 					callback(result);
@@ -142,8 +155,13 @@ $(function(){
 	
 	// New Reply 클릭시
 	$("#addReplyBtn").click(function(){
+		
 		//input 태그가 가지고 있는 val 지우기(다른 댓글 보고 등록시 데이터 남지 않게 초기화해주기)
 		modal.find("input").val("");
+		
+		//로그인 사용자 보여주기
+		modalInputReplyer.val(replyer).attr("readonly","readonly");
+		
 		
 		//날짜 input 숨기기
 		modalInputReplyDate.closest("div").hide();
@@ -312,9 +330,25 @@ $(function(){
 	
 	$("#modalModBtn").click(function(){
 		
+		//replyer 값을 가지고 있는지 확인
+		if(!replyer) {
+			alert('로그인 한 후 수정이 가능합니다.');
+			modal.modal('hide');
+			return;
+		}
+		//로그인 사용자(replyer)와 댓글 작성자(modalInputReplyer)가 같은 사람인지 확인
+		if(modalInputReplyer.val() != replyer) {
+			alert('자신의 댓글만 수정이 가능합니다.');
+			modal.modal('hide');
+			return;
+		}
+		
+		
+		
 		let reply = {
 			rno : modal.data("rno"),
-			reply: modalInputReply.val()
+			reply: modalInputReply.val(),
+			replyer: modalInputReplyer.val()
 		};
 		
 		
@@ -334,7 +368,22 @@ $(function(){
 	})	
 	
 	$("#modalRemoveBtn").click(function(){
-		replyService.remove(modal.data("rno"),function(result){
+		//replyer 값을 가지고 있는지 확인
+		if(!replyer) {
+			alert('로그인 한 후 삭제가 가능합니다.');
+			modal.modal('hide');
+			return;
+		}
+		//로그인 사용자(replyer)와 댓글 작성자(modalInputReplyer)가 같은 사람인지 확인
+		if(modalInputReplyer.val() != replyer) {
+			alert('자신의 댓글만 삭제 가능합니다.');
+			modal.modal('hide');
+			return;
+		}
+		
+		
+		
+		replyService.remove(modal.data("rno"),replyer,function(result){
 			if(result){
 				alert(result);
 				

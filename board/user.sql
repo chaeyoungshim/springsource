@@ -15,11 +15,9 @@ create table spring_member_auth(
 
 select * from spring_member;
 
-delete from spring_member;
 
 
 select * from spring_member_auth;
 
-select count(*) from  spring_member;
+select count(*) from  spring_member_auth;
 
-delete from spring_member_auth;

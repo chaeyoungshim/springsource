@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -236,8 +237,20 @@
                         <li><a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>
                         </li>
                         <li class="divider"></li>
-                        <li><a href="login.html"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
-                        </li>
+                        
+                        <form action="/member/logout" method="post" id="logoutForm">
+                        	<input type="hidden" name="${_csrf.parameterName}"  value="${_csrf.token}"/>
+                        </form>
+                        
+                        
+                        <sec:authorize access="isAuthenticated()">
+                       		<li><a href="#" id="logout"><i class="fa fa-sign-out fa-fw"></i> Logout</a></li>
+                        </sec:authorize>
+                        
+                        <sec:authorize access="isAnonymous()">
+                       		<li><a href="/member/login"><i class="fa fa-sign-in fa-fw"></i> Login</a></li>
+                        </sec:authorize>
+                        
                     </ul>
                     <!-- /.dropdown-user -->
                 </li>
@@ -354,3 +367,29 @@
         </nav>
         <div id="page-wrapper">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script>
+        	//로긍웃 버튼 클릭시 logoutForm 전송
+        	$(function(){
+        		$("#logout").click(function(e){
+        			e.preventDefault();
+        			$("#logoutForm").submit();
+        		})
+        	})
+        </script>
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        

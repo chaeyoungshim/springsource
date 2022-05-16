@@ -1,0 +1,19 @@
+package com.study.board.mapper;
+
+import java.util.List;
+
+import org.apache.ibatis.annotations.Mapper;
+
+import com.study.board.dto.AttachDTO;
+
+@Mapper
+public interface AttachMapper {
+	//첨부파일 삽입
+	public int insert(AttachDTO attach);
+	//첨부파일 목록
+	public List<AttachDTO> list(int bno);
+	//첨부파일 전체 삭제
+	public int deleteAll(int bno);
+	//어제 날짜의 첨부파일 목록 
+	public List<AttachDTO> getOldFiles();
+}

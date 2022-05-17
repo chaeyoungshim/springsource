@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<!-- first, second 영역만 지정 -->
+
+<th:block th:replace="~{/fragments/fragment3::target( ~{this::#first},  ~{this::#second})}">
+	<ul id="first">
+		<li>AAA</li>
+		<li>BBB</li>
+		<li>CCC</li>
+	</ul>
+	<ul id="second">
+		<li>111</li>
+		<li>222</li>
+		<li>333</li>
+	</ul>
+</th:block>

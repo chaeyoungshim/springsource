@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	
+	<!-- header 조각 포함 
+		~{/경로/파일명::fragment 이름}
+	-->
+	<div th:insert="~{/fragments/header::header}"></div>
+	
+	
+	<h1>Contents 영역</h1>
+	
+	<div th:replace="~{/fragments/footer::footer}"></div>
+	
+</body>
+</html>

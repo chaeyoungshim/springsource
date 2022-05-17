@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<h1>Thymeleaf 예제3</h1>
+
+	
+	<table>
+		<tr>
+			<td>MID</td>
+			<td>MNAME</td>
+			<td>REGDATE</td>
+		</tr>
+		<tr th:each="dto:${list}">
+			<td th:text="${dto.mid}"></td>
+			<td th:text="${dto.mname}"></td>
+			<td th:text="${#dates.format(dto.regdate, 'yyyy-MM-dd') }"></td> <!-- 날짜만 보여주고 싶으면 -->
+		</tr>
+	</table>	
+	<br>
+	<hr>
+	
+	<!-- mid 가 u0001인 경우에 SECRET 라는 단어로 변경해서 출력하기 -->
+	<table>
+		<tr>
+			<td>MID</td>
+			<td>MNAME</td>
+			<td>REGDATE</td>
+		</tr>
+		<tr th:each="dto:${list}">
+			<td th:text="${dto.mid == 'u0001' ? 'SECRET' : dto.mid }"></td>
+			<td th:text="${dto.mname}"></td>
+			<td th:text="${#dates.format(dto.regdate, 'yyyy-MM-dd') }"></td> <!-- 날짜만 보여주고 싶으면 -->
+		</tr>
+	</table>	
+	<br>
+	<hr>
+	<!-- mid 가 u0001인 경우에 MODIFY 라는 단어로 변경해서 출력하기 
+		아니면 VIEW 라는 단어로 변경해서 출력하기
+		
+		th:if => if문 구현
+		th:if ~ unless => if ~ else 문 구현
+							(unless가 if와 연결된 구조는 아님, 따라서 조건을 다시 써줘야 함)
+	-->
+	<table>
+		<tr>
+			<td>MID</td>
+			<td>MNAME</td>
+			<td>REGDATE</td>
+		</tr>
+		<tr th:each="dto:${list}">
+			<td th:if="${dto.mid}">
+				<a href="/MODIFY" th:if="${dto.mid =='u0001'}">MODIFY</a>
+				<p th:unless="${dto.mid == 'u0001'}">VIEW</p>
+			</td>
+			<td th:text="${dto.mname}"></td>
+			<td th:text="${#dates.format(dto.regdate, 'yyyy-MM-dd') }"></td> <!-- 날짜만 보여주고 싶으면 -->
+		</tr>
+	</table>	
+	
+	
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

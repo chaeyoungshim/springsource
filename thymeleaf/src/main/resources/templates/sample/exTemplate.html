@@ -1,0 +1,10 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<th:block th:replace="~{/layout/layout1::setContent(~{this::content})}">
+
+	<th:block th:fragment="content">
+		<h1>Template 예제 페이지</h1>
+	</th:block>
+
+</th:block>

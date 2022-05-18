@@ -1,5 +1,6 @@
 package com.study.jpa.repository;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.stream.IntStream;
 
@@ -81,43 +82,64 @@ public class MemoRepositoryTest {
 //		repository.deleteById(90L);
 //	}
 	
-	@Test
-	public void testPaging() {
-		
-		// 페이징 처리 : findAll(Pageeble)
-		// Pageable : 페이지 처리에 필요한 정보를 전달하는 객체
-		
-		//페이지 번호는 0번부터 시작
-		//1페이지 데이터 10개 가져오기
-//		Pageable pageable = PageRequest.of(0, 10);
+//	@Test
+//	public void testPaging() {
+//		
+//		// 페이징 처리 : findAll(Pageeble)
+//		// Pageable : 페이지 처리에 필요한 정보를 전달하는 객체
+//		
+//		//페이지 번호는 0번부터 시작
+//		//1페이지 데이터 10개 가져오기
+////		Pageable pageable = PageRequest.of(0, 10);
+////		Page<Memo> result = repository.findAll(pageable);
+//		
+//		//정렬 기준 설정
+//		Sort sort = Sort.by("mno").descending();
+//		Pageable pageable = PageRequest.of(0, 10, sort);
+//		
 //		Page<Memo> result = repository.findAll(pageable);
+//		
+//		System.out.println(result);
+//		
+//		System.out.println("----------------------------------------");
+//		
+//		System.out.println("총 페이지 수 : "+result.getTotalPages());
+//		System.out.println("전체 게시물 수 : "+result.getTotalElements());
+//		System.out.println("현재 페이지 번호(0부터 시작) : "+result.getNumber());
+//		System.out.println("페이지 당 데이터 개수 : "+result.getSize());
+//		System.out.println("다음 페이지 존재 여부 : "+result.hasNext());
+//		System.out.println("시작 페이지 존재 여부 : "+result.isFirst());
+//		
+//		System.out.println("----------------------------------------");
+//		
+//		for(Memo memo : result.getContent()) {
+//			System.out.println(memo);
+//		}
+//		
+//	}
+	
+//	@Test
+//	public void testQuery() {
+//		
+//		List<Memo> list = repository.findByMnoBetweenOrderByMnoDesc(40L, 80L);
+//		
+//		list.forEach(memo -> {
+//			System.out.println(memo);
+//		});
+//	}
+	
+	
+	@Test
+	public void testQuery2() {
 		
-		//정렬 기준 설정
-		Sort sort = Sort.by("mno").descending();
-		Pageable pageable = PageRequest.of(0, 10, sort);
+		Pageable pageable = PageRequest.of(0, 10, Sort.by("mno").descending()); //역순인 내림차순 했고 10개만 가져오기
 		
-		Page<Memo> result = repository.findAll(pageable);
+		Page<Memo> result = repository.findByMnoBetween(40L, 80L, pageable);
 		
-		System.out.println(result);
-		
-		System.out.println("----------------------------------------");
-		
-		System.out.println("총 페이지 수 : "+result.getTotalPages());
-		System.out.println("전체 게시물 수 : "+result.getTotalElements());
-		System.out.println("현재 페이지 번호(0부터 시작) : "+result.getNumber());
-		System.out.println("페이지 당 데이터 개수 : "+result.getSize());
-		System.out.println("다음 페이지 존재 여부 : "+result.hasNext());
-		System.out.println("시작 페이지 존재 여부 : "+result.isFirst());
-		
-		System.out.println("----------------------------------------");
-		
-		for(Memo memo : result.getContent()) {
+		result.getContent().forEach(memo -> {
 			System.out.println(memo);
-		}
-		
+		});
 	}
-	
-	
 	
 }
 

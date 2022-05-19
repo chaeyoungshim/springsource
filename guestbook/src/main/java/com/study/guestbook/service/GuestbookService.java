@@ -12,6 +12,14 @@ public interface GuestbookService {
 	//목록
 	PageResultDTO<GuestbookDTO, Guestbook> getList(PageRequestDTO requestDTO);
 	
+	//조회
+	GuestbookDTO read(Long gno);
+	
+	//삭제
+	void remove(Long gno);
+	
+	//수정
+	void modify(GuestbookDTO updateDto);
 	
 	//Entity(Guestbook) => DTO(GuestbookDTO) 로 변환
 	default GuestbookDTO entityToDto(Guestbook entity) {
@@ -21,7 +29,7 @@ public interface GuestbookService {
 										.content(entity.getContent())
 										.writer(entity.getWriter())
 										.regDate(entity.getRegDate())
-										.updatedate(entity.getUpdateDate())
+										.updateDate(entity.getUpdateDate())
 										.build();
 		
 		return dto;

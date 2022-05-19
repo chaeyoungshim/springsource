@@ -19,6 +19,13 @@ public class PageRequestDTO {
 	private int page; //현재 페이지 번호
 	private int size; //페이지 내 보여줄 목록 수
 	
+	//검색을 위한 정보 끌고가기
+	private String type; //검색 종류(내용, 작성자, 제목...)
+	private String keyword; //검색어
+	
+	
+	
+	
 	public PageRequestDTO() {
 		this.page = 1;
 		this.size = 10;
